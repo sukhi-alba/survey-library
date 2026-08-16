@@ -1,0 +1,25 @@
+{
+  "name": "survey-react-native-ui",
+  "version": "3.0.0",
+  "description": "SurveyJS Form Library React Native UI Renderer",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.72.0",
+    "survey-core": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "react": "^18.3.0",
+    "react-native": "^0.72.0",
+    "survey-core": "../survey-core/build",
+    "typescript": "^5.7.0"
+  },
+  "dependencies": {
+    "survey-library": "file:../.."
+  }
+}
