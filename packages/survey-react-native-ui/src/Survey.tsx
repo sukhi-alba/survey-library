@@ -32,8 +32,7 @@ export class SurveyElementErrors extends React.Component<{ errors: Array<SurveyE
   render() {
     const theme = getTheme();
     const errorItems = this.props.errors.map((error, idx) => (
-      <Text key={idx} style={[styles.errorText, { color: theme.colors.error }]}>
-        • {error.getText()}
+      <Text key={idx} style={[styles.errorText, { color: theme.colors.error }]}>{"\u2022"} {error.getText()}
       </Text>
     ));
     return <View style={styles.errorContainer}>{errorItems}</View>;
@@ -43,7 +42,7 @@ export class SurveyElementErrors extends React.Component<{ errors: Array<SurveyE
 // ==========================================
 // 2. SurveyQuestion
 // ==========================================
-export class SurveyQuestion extends ReactNativeSurveyElement<{ element: Question; services?: any }> {
+export class SurveyQuestion extends ReactNativeSurveyElement<{ element: Question, services?: any }> {
   protected getStateElement(): Base {
     return this.props.element;
   }
@@ -115,7 +114,7 @@ export class SurveyQuestion extends ReactNativeSurveyElement<{ element: Question
 // ==========================================
 // 3. SurveyRowElement
 // ==========================================
-export class SurveyRowElement extends React.Component<{ element: any; services?: any }> {
+export class SurveyRowElement extends React.Component<{ element: any, services?: any }> {
   render() {
     const element = this.props.element;
     if (!element.isVisible) return null;
@@ -139,7 +138,7 @@ export class SurveyRowElement extends React.Component<{ element: any; services?:
 // ==========================================
 // 4. SurveyRow
 // ==========================================
-export class SurveyRow extends ReactNativeSurveyElement<{ row: QuestionRowModel; services?: any }> {
+export class SurveyRow extends ReactNativeSurveyElement<{ row: QuestionRowModel, services?: any }> {
   protected getStateElement(): Base {
     return this.props.row;
   }
@@ -150,7 +149,7 @@ export class SurveyRow extends ReactNativeSurveyElement<{ row: QuestionRowModel;
     if (!this.row.isNeedRender) return null;
 
     const elements = this.row.visibleElements.map((el) => (
-      <SurveyRowElement key={el.id} element={el} services={this.props.services} />
+      <SurveyRowElement key={(el as any).id} element={el} services={this.props.services} />
     ));
 
     const isHorizontal = elements.length > 1;
@@ -166,7 +165,7 @@ export class SurveyRow extends ReactNativeSurveyElement<{ row: QuestionRowModel;
 // ==========================================
 // 5. SurveyPanel
 // ==========================================
-export class SurveyPanel extends ReactNativeSurveyElement<{ element: PanelModel; services?: any }> {
+export class SurveyPanel extends ReactNativeSurveyElement<{ element: PanelModel, services?: any }> {
   protected getStateElement(): Base {
     return this.props.element;
   }
@@ -213,7 +212,7 @@ export class SurveyPanel extends ReactNativeSurveyElement<{ element: PanelModel;
 // ==========================================
 // 6. SurveyPage
 // ==========================================
-export class SurveyPage extends ReactNativeSurveyElement<{ element: PageModel; services?: any }> {
+export class SurveyPage extends ReactNativeSurveyElement<{ element: PageModel, services?: any }> {
   protected getStateElement(): Base {
     return this.props.element;
   }
@@ -253,7 +252,7 @@ export class SurveyPage extends ReactNativeSurveyElement<{ element: PageModel; s
 // ==========================================
 // 7. ReactNativeSurvey (Root Survey Component)
 // ==========================================
-export class Survey extends ReactNativeSurveyElement<{ model: SurveyModel; services?: any; theme?: Partial<ISurveyTheme> }, { currentPage: PageModel | null; isCompleted: boolean }> {
+export class Survey extends ReactNativeSurveyElement<{ model: SurveyModel, services?: any, theme?: Partial<ISurveyTheme> }, { currentPage: PageModel | null, isCompleted: boolean }> {
   constructor(props: any) {
     super(props);
     if (this.props.theme) {
@@ -289,7 +288,7 @@ export class Survey extends ReactNativeSurveyElement<{ model: SurveyModel; servi
     super.componentWillUnmount();
     this.survey.onCurrentPageChanged.remove(this.onCurrentPageChangedHandler);
     this.survey.onComplete.remove(this.onCompleteHandler);
-    this.survey.renderCallback = undefined;
+    this.survey.renderCallback = undefined as any;
   }
 
   private onCurrentPageChangedHandler = () => {

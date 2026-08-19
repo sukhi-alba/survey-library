@@ -6,7 +6,7 @@ import { ReactNativeQuestionFactory } from "../ReactNativeFactories";
 import { SurveyPanel } from "../Survey";
 import { getTheme } from "../theme";
 
-export class PanelDynamicQuestion extends ReactNativeSurveyElement<{ question: QuestionPanelDynamicModel }, { panelCounter: number }> {
+export class PanelDynamicQuestion extends ReactNativeSurveyElement<{ question: QuestionPanelDynamicModel, services?: any }, { panelCounter: number }> {
   constructor(props: any) {
     super(props);
     this.state = { panelCounter: 0 };
@@ -126,7 +126,7 @@ export class PanelDynamicQuestion extends ReactNativeSurveyElement<{ question: Q
         <View style={styles.container}>
           {/* Progress Indicator */}
           <View style={[styles.progressBarOuter, { backgroundColor: theme.colors.border, borderRadius: theme.borderRadius.small }]}>
-            <View style={[styles.progressBarInner, { width: progressPercent, backgroundColor: theme.colors.primary, borderRadius: theme.borderRadius.small }]} />
+            <View style={[styles.progressBarInner, { width: progressPercent as any, backgroundColor: theme.colors.primary, borderRadius: theme.borderRadius.small }]} />
           </View>
 
           <View style={styles.panelWrapper}>

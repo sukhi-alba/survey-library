@@ -5,6 +5,15 @@ import { ReactNativeSurveyElement } from "../ReactNativeSurveyElement";
 import { ReactNativeQuestionFactory } from "../ReactNativeFactories";
 import { getTheme } from "../theme";
 
+// Import specialized renderers
+import { DatePickerRenderer } from "./TextInputs/DatePickerRenderer";
+import { TimePickerRenderer } from "./TextInputs/TimePickerRenderer";
+import { DateTimePickerRenderer } from "./TextInputs/DateTimePickerRenderer";
+import { MonthPickerRenderer } from "./TextInputs/MonthPickerRenderer";
+import { WeekPickerRenderer } from "./TextInputs/WeekPickerRenderer";
+import { RangePickerRenderer } from "./TextInputs/RangePickerRenderer";
+import { ColorPickerRenderer } from "./TextInputs/ColorPickerRenderer";
+
 export class TextQuestion extends ReactNativeSurveyElement<{ question: QuestionTextModel }> {
   protected getStateElement() {
     return this.props.question;
@@ -15,14 +24,40 @@ export class TextQuestion extends ReactNativeSurveyElement<{ question: QuestionT
   render() {
     const theme = getTheme();
     const question = this.question;
+    const inputType = question.inputType;
+
+    // Dispatch to specialized pickers
+    if (inputType === "date") {
+      return <DatePickerRenderer question={question} />;
+    }
+    if (inputType === "time") {
+      return <TimePickerRenderer question={question} />;
+    }
+    if (inputType === "datetime-local") {
+      return <DateTimePickerRenderer question={question} />;
+    }
+    if (inputType === "month") {
+      return <MonthPickerRenderer question={question} />;
+    }
+    if (inputType === "week") {
+      return <WeekPickerRenderer question={question} />;
+    }
+    if (inputType === "range") {
+      return <RangePickerRenderer question={question} />;
+    }
+    if (inputType === "color") {
+      return <ColorPickerRenderer question={question} />;
+    }
 
     let keyboardType: any = "default";
-    if (question.inputType === "numeric" || question.inputType === "number" || question.inputType === "range") {
+    if (question.inputType === "numeric" || question.inputType === "number") {
       keyboardType = "numeric";
     } else if (question.inputType === "tel") {
       keyboardType = "phone-pad";
     } else if (question.inputType === "email") {
       keyboardType = "email-address";
+    } else if (inputType === "url") {
+      keyboardType = "url";
     }
 
     const secureTextEntry = question.inputType === "password";

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../oceanaut-app-pro"
+		}
+	],
+	"settings": {
+		"testing.automaticallyOpenTestResults": "neverOpen"
+	}
+}

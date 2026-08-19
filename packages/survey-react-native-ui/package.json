@@ -8,11 +8,15 @@
     "build": "tsc"
   },
   "peerDependencies": {
+    "@react-native-community/datetimepicker": ">=9.0.0",
+    "@react-native-community/slider": ">=4.4.0",
     "react": ">=18.0.0",
     "react-native": ">=0.72.0",
     "survey-core": "^3.0.0"
   },
   "devDependencies": {
+    "@react-native-community/datetimepicker": "^9.0.0",
+    "@react-native-community/slider": "^4.5.0",
     "@types/react": "^18.3.0",
     "react": "^18.3.0",
     "react-native": "^0.72.0",

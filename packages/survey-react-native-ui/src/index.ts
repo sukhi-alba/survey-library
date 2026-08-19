@@ -10,6 +10,9 @@ import "./questions/FileQuestion";
 import "./questions/SignatureQuestion";
 import "./questions/CustomQuestion";
 import "./questions/LocationQuestion";
+import "./questions/MatrixQuestion";
+import "./questions/MatrixDropdownQuestion";
+import "./questions/MatrixDynamicQuestion";
 
 export { Survey, SurveyQuestion, SurveyPage, SurveyPanel, SurveyRow, SurveyRowElement, SurveyElementErrors } from "./Survey";
 export { ReactNativeSurveyElement } from "./ReactNativeSurveyElement";
