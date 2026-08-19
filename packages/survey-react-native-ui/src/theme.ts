@@ -1,34 +1,34 @@
 export interface ISurveyTheme {
   colors: {
-    primary: string;
-    background: string;
-    surface: string;
-    text: string;
-    textLight: string;
-    border: string;
-    error: string;
-    success: string;
-    placeholder: string;
-    accent: string;
+    primary: string,
+    background: string,
+    surface: string,
+    text: string,
+    textLight: string,
+    border: string,
+    error: string,
+    success: string,
+    placeholder: string,
+    accent: string,
   };
   typography: {
-    fontFamily?: string;
-    sizeHeader: number;
-    sizeTitle: number;
-    sizeBody: number;
-    sizeSmall: number;
+    fontFamily?: string,
+    sizeHeader: number,
+    sizeTitle: number,
+    sizeBody: number,
+    sizeSmall: number,
   };
   spacing: {
-    xsmall: number;
-    small: number;
-    medium: number;
-    large: number;
-    xlarge: number;
+    xsmall: number,
+    small: number,
+    medium: number,
+    large: number,
+    xlarge: number,
   };
   borderRadius: {
-    small: number;
-    medium: number;
-    large: number;
+    small: number,
+    medium: number,
+    large: number,
   };
 }
 

@@ -357,8 +357,9 @@ describe("SurveyJS React Native UI Tests", () => {
 
     // Ensure all 10 elements resolve to a valid react-native renderer
     firstPage.elements.forEach((element) => {
-      const type = element.isDefaultRendering() ? element.getTemplate() : element.getComponentName();
-      const creator = ReactNativeQuestionFactory.Instance.createQuestion(type, { question: element });
+      const q = element as any;
+      const type = q.isDefaultRendering() ? q.getTemplate() : q.getComponentName();
+      const creator = ReactNativeQuestionFactory.Instance.createQuestion(type, { question: q });
       expect(creator).not.toBeNull();
     });
   });
