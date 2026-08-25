@@ -1,3 +1,7 @@
+/**
+ * RankingQuestion Component
+ * Renders a list of items that can be ranked by moving them up/down.
+ */
 import * as React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { QuestionRankingModel, ItemValue } from "survey-core";

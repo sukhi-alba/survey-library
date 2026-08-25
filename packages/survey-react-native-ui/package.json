@@ -4,6 +4,7 @@
   "description": "SurveyJS Form Library React Native UI Renderer",
   "main": "src/index.ts",
   "types": "src/index.ts",
+  "sideEffects": true,
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
@@ -11,7 +12,10 @@
   },
   "peerDependencies": {
     "@react-native-community/datetimepicker": ">=9.0.0",
-    "@react-native-community/slider": ">=4.4.0",
+    "@react-native-documents/picker": ">=12.0.0",
+    "react-native-image-crop-picker": ">=0.51.0",
+    "react-native-signature-canvas": ">=4.7.0",
+    "react-native-webview": ">=13.0.0",
     "react": ">=18.0.0",
     "react-native": ">=0.72.0",
     "survey-core": "^3.0.0"
@@ -19,6 +23,10 @@
   "devDependencies": {
     "@react-native-community/datetimepicker": "^9.0.0",
     "@react-native-community/slider": "^4.5.0",
+    "@react-native-documents/picker": "^12.0.1",
+    "react-native-image-crop-picker": "^0.51.1",
+    "react-native-signature-canvas": "^4.7.1",
+    "react-native-webview": "^13.6.2",
     "@types/react": "^18.3.0",
     "react": "^18.3.0",
     "react-native": "^0.72.0",

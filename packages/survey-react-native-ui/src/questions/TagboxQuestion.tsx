@@ -1,3 +1,7 @@
+/**
+ * TagboxQuestion Component
+ * Renders a multi-select dropdown question represented by visual tags.
+ */
 import * as React from "react";
 import { View, Text, Pressable, StyleSheet, Modal, ScrollView } from "react-native";
 import { QuestionTagboxModel, ItemValue } from "survey-core";
@@ -35,7 +39,7 @@ export class TagboxQuestion extends ReactNativeSurveyElement<
     if (question.isInputReadOnly) return;
 
     const current = [...this.selectedValues];
-    const idx = current.indexOf(val);
+    const idx = current.findIndex((v) => v == val || String(v) === String(val));
     if (idx > -1) {
       current.splice(idx, 1);
     } else {
@@ -47,7 +51,7 @@ export class TagboxQuestion extends ReactNativeSurveyElement<
   private removeChip(val: any) {
     const question = this.question;
     if (question.isInputReadOnly) return;
-    const current = this.selectedValues.filter((v) => v !== val);
+    const current = this.selectedValues.filter((v) => v != val && String(v) !== String(val));
     question.value = current.length > 0 ? current : undefined;
   }
 
@@ -145,7 +149,9 @@ export class TagboxQuestion extends ReactNativeSurveyElement<
 
               <ScrollView style={styles.modalScroll} bounces={false}>
                 {choices.map((choice: ItemValue) => {
-                  const isChosen = selected.includes(choice.value);
+                  const isChosen = selected.some(
+                    (v) => v == choice.value || String(v) === String(choice.value)
+                  );
                   return (
                     <Pressable
                       key={String(choice.value)}

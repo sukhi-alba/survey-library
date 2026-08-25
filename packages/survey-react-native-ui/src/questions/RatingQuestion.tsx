@@ -1,3 +1,7 @@
+/**
+ * RatingQuestion Component
+ * Renders a row of selectable options (numbers or custom values) for rating.
+ */
 import * as React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import { QuestionRatingModel, ItemValue } from "survey-core";
@@ -29,7 +33,9 @@ export class RatingQuestion extends ReactNativeSurveyElement<{ question: Questio
     return (
       <View style={styles.container}>
         {rateValues.map((rate: ItemValue) => {
-          const isSelected = currentValue === rate.value;
+          const isSelected =
+            currentValue == rate.value ||
+            (currentValue !== undefined && String(currentValue) === String(rate.value));
           return (
             <Pressable
               key={String(rate.value)}

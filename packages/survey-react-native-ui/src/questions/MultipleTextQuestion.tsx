@@ -129,3 +129,6 @@ const styles = StyleSheet.create({
 ReactNativeQuestionFactory.Instance.registerQuestion("multipletext", (props) => (
   <MultipleTextQuestion {...props} />
 ));
+ReactNativeQuestionFactory.Instance.registerQuestion("multipletextboxes", (props) => (
+  <MultipleTextQuestion {...props} />
+));

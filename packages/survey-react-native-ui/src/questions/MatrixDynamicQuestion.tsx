@@ -37,7 +37,7 @@ export class MatrixDynamicQuestion extends ReactNativeSurveyElement<{
      * for question.removeRow(modelIndex).
      */
     const dataRows = (table.renderedRows || []).filter(
-      (row: QuestionMatrixDropdownRenderedRow) => row.row !== null && row.row !== undefined
+      (row: QuestionMatrixDropdownRenderedRow) => !!row.row
     );
 
     return (
@@ -86,9 +86,19 @@ export class MatrixDynamicQuestion extends ReactNativeSurveyElement<{
                   if (!cell.isVisible || !cell.hasQuestion) return null;
 
                   const cellQuestion = cell.question;
-                  const cellType = cellQuestion.isDefaultRendering()
+                  let cellType = cellQuestion.isDefaultRendering()
                     ? cellQuestion.getTemplate()
                     : cellQuestion.getComponentName();
+
+                  // Fallback 1: If template/component name is unregistered, try basic question type.
+                  if (!ReactNativeQuestionFactory.Instance.getAllTypes().includes(cellType)) {
+                    cellType = cellQuestion.getType();
+                  }
+                  // Fallback 2: Fall back to default question wrapper.
+                  if (!ReactNativeQuestionFactory.Instance.getAllTypes().includes(cellType)) {
+                    cellType = "question";
+                  }
+
                   const cellBody = ReactNativeQuestionFactory.Instance.createQuestion(cellType, {
                     question: cellQuestion,
                     services: this.props.services,

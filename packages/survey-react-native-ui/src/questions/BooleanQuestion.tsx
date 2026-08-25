@@ -1,3 +1,7 @@
+/**
+ * BooleanQuestion Component
+ * Renders a standard boolean question (Switch with true/false labels).
+ */
 import * as React from "react";
 import { View, Text, Switch, StyleSheet } from "react-native";
 import { QuestionBooleanModel } from "survey-core";
@@ -16,7 +20,7 @@ export class BooleanQuestion extends ReactNativeSurveyElement<{ question: Questi
   render() {
     const theme = getTheme();
     const question = this.question;
-    const isTrue = question.value === true;
+    const isTrue = question.booleanValue === true;
     const isReadOnly = question.isInputReadOnly;
 
     return (
@@ -25,7 +29,7 @@ export class BooleanQuestion extends ReactNativeSurveyElement<{ question: Questi
           style={[
             styles.label,
             {
-              color: question.value === false ? theme.colors.primary : theme.colors.textLight,
+              color: question.booleanValue === false ? theme.colors.primary : theme.colors.textLight,
             },
           ]}
         >
@@ -35,7 +39,7 @@ export class BooleanQuestion extends ReactNativeSurveyElement<{ question: Questi
           disabled={isReadOnly}
           value={isTrue}
           onValueChange={(newValue) => {
-            question.value = newValue;
+            question.booleanValue = newValue;
           }}
           trackColor={{ false: theme.colors.border, true: theme.colors.primary }}
           thumbColor={theme.colors.surface}

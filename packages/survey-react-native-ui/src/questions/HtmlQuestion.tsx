@@ -1,10 +1,10 @@
 import * as React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { QuestionHtmlModel } from "survey-core";
 import { ReactNativeSurveyElement } from "../ReactNativeSurveyElement";
 import { ReactNativeQuestionFactory } from "../ReactNativeFactories";
 import { getTheme } from "../theme";
-import { stripHtml } from "../utils/htmlUtils";
+import { parseHtmlToReact } from "../utils/htmlUtils";
 
 export class HtmlQuestion extends ReactNativeSurveyElement<{ question: QuestionHtmlModel }> {
   protected getStateElement() {
@@ -17,28 +17,16 @@ export class HtmlQuestion extends ReactNativeSurveyElement<{ question: QuestionH
   render() {
     const theme = getTheme();
     const question = this.question;
+    const rawHtml = question.html || "";
 
-    /**
-     * SurveyJS HTML questions contain arbitrary HTML markup.
-     * React Native cannot render HTML natively without a WebView.
-     *
-     * For security and simplicity, HTML tags are stripped and the
-     * plain text content is rendered. This intentionally avoids
-     * executing any scripts, loading external content, or
-     * introducing a WebView dependency.
-     *
-     * Limitation: Rich formatting (bold, links, images inside HTML)
-     * is not rendered. Only the textual content is preserved.
-     */
-    const plainText = stripHtml(question.html || "");
+    if (!rawHtml) return null;
 
-    if (!plainText) return null;
+    // Use our custom, lightweight HTML parser to render nested Text formatting nodes
+    const renderedContent = parseHtmlToReact(rawHtml, theme.colors);
 
     return (
       <View style={styles.container}>
-        <Text style={[styles.text, { color: theme.colors.text }]}>
-          {plainText}
-        </Text>
+        {renderedContent}
       </View>
     );
   }
@@ -47,10 +35,6 @@ export class HtmlQuestion extends ReactNativeSurveyElement<{ question: QuestionH
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 4,
-  },
-  text: {
-    fontSize: 14,
-    lineHeight: 22,
   },
 });
 

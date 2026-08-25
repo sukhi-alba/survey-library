@@ -60,6 +60,35 @@ vi.mock("@react-native-community/datetimepicker", () => {
   };
 });
 
+vi.mock("@react-native-documents/picker", () => {
+  return {
+    pick: vi.fn().mockResolvedValue([]),
+  };
+});
+
+vi.mock("react-native-signature-canvas", () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const React = require("react");
+  return {
+    default: (props: any) => React.createElement("SignatureCanvas", props),
+  };
+});
+
+vi.mock("react-native-webview", () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const React = require("react");
+  return {
+    default: (props: any) => React.createElement("WebView", props),
+  };
+});
+
+vi.mock("react-native-image-crop-picker", () => {
+  return {
+    openCamera: vi.fn().mockResolvedValue(null),
+    openPicker: vi.fn().mockResolvedValue([]),
+  };
+});
+
 vi.mock("@react-native-community/slider", () => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const React = require("react");

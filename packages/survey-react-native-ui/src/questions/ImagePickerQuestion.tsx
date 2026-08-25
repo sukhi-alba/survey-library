@@ -1,3 +1,7 @@
+/**
+ * ImagePickerQuestion Component
+ * Renders a grid of selectable images for picking single or multiple choices.
+ */
 import * as React from "react";
 import {
   View,
@@ -68,9 +72,12 @@ export class ImagePickerQuestion extends ReactNativeSurveyElement<
   private isSelected(choice: ImageChoice): boolean {
     const val = this.question.value;
     if (this.isMultiSelect) {
-      return Array.isArray(val) && val.includes(choice.value);
+      return (
+        Array.isArray(val) &&
+        val.some((v) => v == choice.value || String(v) === String(choice.value))
+      );
     }
-    return val === choice.value;
+    return val == choice.value || (val !== undefined && String(val) === String(choice.value));
   }
 
   private toggleItem(choice: ImageChoice) {
@@ -79,7 +86,9 @@ export class ImagePickerQuestion extends ReactNativeSurveyElement<
 
     if (this.isMultiSelect) {
       const current: any[] = Array.isArray(question.value) ? [...question.value] : [];
-      const idx = current.indexOf(choice.value);
+      const idx = current.findIndex(
+        (v) => v == choice.value || String(v) === String(choice.value)
+      );
       if (idx > -1) {
         current.splice(idx, 1);
       } else {
@@ -88,7 +97,10 @@ export class ImagePickerQuestion extends ReactNativeSurveyElement<
       question.value = current.length > 0 ? current : undefined;
     } else {
       // Toggle off if already selected (allow deselect)
-      question.value = question.value === choice.value ? undefined : choice.value;
+      const isCurrentlySelected =
+        question.value == choice.value ||
+        (question.value !== undefined && String(question.value) === String(choice.value));
+      question.value = isCurrentlySelected ? undefined : choice.value;
     }
   }
 

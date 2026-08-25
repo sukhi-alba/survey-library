@@ -29,11 +29,10 @@ export class MatrixDropdownQuestion extends ReactNativeSurveyElement<{
 
     /**
      * renderedRows alternates between null-separator rows (row.row === null)
-     * and actual data rows (row.row !== null). We must filter out the null
-     * separator rows before rendering, otherwise we crash on null access.
+     * and actual data rows (row.row !== null). Filter to actual data rows only.
      */
     const dataRows = (table.renderedRows || []).filter(
-      (row: QuestionMatrixDropdownRenderedRow) => row.row !== null && row.row !== undefined
+      (row: QuestionMatrixDropdownRenderedRow) => !!row.row
     );
 
     if (dataRows.length === 0) {
@@ -72,9 +71,19 @@ export class MatrixDropdownQuestion extends ReactNativeSurveyElement<{
                   if (!cell.isVisible || !cell.hasQuestion) return null;
 
                   const cellQuestion = cell.question;
-                  const cellType = cellQuestion.isDefaultRendering()
+                  let cellType = cellQuestion.isDefaultRendering()
                     ? cellQuestion.getTemplate()
                     : cellQuestion.getComponentName();
+
+                  // Fallback 1: If template/component name is unregistered, try basic question type.
+                  if (!ReactNativeQuestionFactory.Instance.getAllTypes().includes(cellType)) {
+                    cellType = cellQuestion.getType();
+                  }
+                  // Fallback 2: Fall back to default question wrapper.
+                  if (!ReactNativeQuestionFactory.Instance.getAllTypes().includes(cellType)) {
+                    cellType = "question";
+                  }
+
                   const cellBody = ReactNativeQuestionFactory.Instance.createQuestion(cellType, {
                     question: cellQuestion,
                     services: this.props.services,
