@@ -51,7 +51,7 @@ export class CheckboxQuestion extends ReactNativeSurveyElement<{ question: Quest
               }
             ]}
           >
-            {isSelected && <Text style={styles.checkMark}>✓</Text>}
+            {isSelected && <Text style={styles.checkMark}>{"\u2713"}</Text>}
           </View>
           <Text style={[styles.choiceText, { color: theme.colors.text }]}>
             {choice.text || choice.value}
